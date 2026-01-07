@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tejesh Kumar Adapa | Portfolio</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Decoration */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .profile-img {
+            width: 320px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 4px solid transparent;
+            background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--gradient) border-box;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        /* Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-download {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Sections Styling */
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Skills Tag */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            border-left: 2px solid var(--primary);
+            padding-left: 2rem;
+            padding-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 60px;
+            }
+            .hero-content { display: flex; flex-direction: column; align-items: center; }
+            h1 { font-size: 2.5rem; }
+            .cta-group { flex-direction: column; }
+            .profile-img { width: 260px; height: 320px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob" style="top: -10%; right: -10%;"></div>
+    <div class="blob" style="bottom: 10%; left: -10%;"></div>
+
+    <div class="container">
+        <header>
+            <div class="hero-content">
+                <div class="hero-badge">AI & ML Specialist</div>
+                <h1>Tejesh Kumar Adapa</h1>
+                <p class="subtitle">Developing the next generation of intelligent systems. B.Tech Computer Science student at JNTUH Manthani.</p>
+                
+                <div class="cta-group">
+                    <a href="resume.pdf" download class="btn-download">
+                        <i data-lucide="file-down"></i>
+                        Download CV
+                    </a>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="https://github.com/Tejesh655" style="color: var(--text-dim);"><i data-lucide="github"></i></a>
+                        <a href="https://linkedin.com/in/tejesh-kumar-adapa-a96911288" style="color: var(--text-dim);"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image-container">
+                <!-- Replace 'profile.jpg' with your photo filename -->
+                <img src="profile.jpg" alt="Tejesh Kumar Adapa" class="profile-img">
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="card">
+                <p>A dedicated student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning. I am seeking opportunities to apply my programming logic and contribute to innovative organizational goals.</p>
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; color: var(--text-dim);">
+                    <span><i data-lucide="calendar" style="width:16px; margin-right:8px;"></i> 20/12/2003</span>
+                    <span><i data-lucide="languages" style="width:16px; margin-right:8px;"></i> English, Telugu</span>
+                    <span><i data-lucide="map-pin" style="width:16px; margin-right:8px;"></i> Telangana, India</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills -->
+        <section id="skills">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Programming</h3>
+                    <div class="skills-container">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C Language</span>
+                        <span class="skill-tag">Data Structures</span>
+                        <span class="skill-tag">Algorithms</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--secondary);">Data Science</h3>
+                    <div class="skills-container">
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">PCA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <h2 class="section-title">Key Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <div style="color: var(--primary); margin-bottom: 1rem;"><i data-lucide="brain-circuit"></i></div>
+                    <h3>ML Fundamentals</h3>
+                    <p style="color: var(--text-dim); margin: 1rem 0;">Built an end-to-end ML pipeline with data preprocessing, EDA, and model evaluation using Python.</p>
+                </div>
+                <div class="card">
+                    <div style="color: var(--secondary); margin-bottom: 1rem;"><i data-lucide="code-2"></i></div>
+                    <h3>DSA Analysis</h3>
+                    <p style="color: var(--text-dim); margin: 1rem 0;">Scratch implementation of stacks, queues, and trees with complexity analysis for optimization.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline-item">
+                <h3>B.Tech - Computer Science (AI & ML)</h3>
+                <p>JNTUH Manthani College of Engineering</p>
+                <small style="color: var(--primary);">2023 — 2027 • Pursuing</small>
+            </div>
+            <div class="timeline-item">
+                <h3>Intermediate (MPC)</h3>
+                <p>Narayana Junior College, Ravirala</p>
+                <small style="color: var(--text-dim);">97% Score</small>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);">
+            <p>Designed by Tejesh Kumar Adapa | 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Scroll reveal logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
